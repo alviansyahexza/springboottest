@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,7 +17,7 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
-    private User gw2User(GwCreateUser params) {
+    public User gw2User(GwCreateUser params) {
         User user = new User();
         user.setUsername(params.getUsername());
         user.setBirthdate(params.getBirthdate());
@@ -28,8 +27,8 @@ public class UserService {
 
     public UserDto createUser(GwCreateUser params) {
         User user = gw2User(params);
-        userRepo.save(user);
-        return new UserDto(user);
+        User save = userRepo.save(user);
+        return new UserDto(save);
     }
 
     public List<UserDto> getAllUsers() {
